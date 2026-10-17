@@ -1,0 +1,78 @@
+/* OmniBuild — lüks tema katmanı (styles.css'in üstüne biner) */
+:root{
+  --gold:#1ea7ff; --gold2:#d4f1ff; --bg:#050505;
+  --glass:rgba(255,255,255,.03); --line:rgba(30,167,255,.16);
+  --txt:#efe9da; --muted:#7f786b;
+}
+html,body{font-family:"Segoe UI Variable Text","Segoe UI",system-ui,sans-serif;letter-spacing:.005em}
+body{background:
+  radial-gradient(1200px 600px at 15% -10%,rgba(30,167,255,.09),transparent 60%),
+  radial-gradient(900px 500px at 110% 110%,rgba(10,95,176,.07),transparent 60%),
+  #050505}
+.aurora{display:none}
+
+/* Üst bar: ince altın çizgi */
+.topbar{background:rgba(8,8,8,.7);border-bottom:none;padding:16px 28px}
+.topbar::after{content:"";position:absolute;left:0;right:0;bottom:-1px;height:1px;
+  background:linear-gradient(90deg,transparent,var(--gold) 30%,var(--gold2) 50%,var(--gold) 70%,transparent);opacity:.7}
+.logo{width:46px;height:46px;filter:drop-shadow(0 6px 18px rgba(30,167,255,.22));animation:none}
+h1{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:19px;letter-spacing:.42em;
+  background:linear-gradient(90deg,#2a8fd6,var(--gold2),#2a8fd6);background-size:200% auto;
+  -webkit-background-clip:text;background-clip:text;color:transparent}
+.topbar small{letter-spacing:.06em;font-size:11.5px}
+
+/* Paneller */
+.panel{background:linear-gradient(180deg,rgba(255,255,255,.028),rgba(255,255,255,.008));
+  border:1px solid var(--line);border-radius:18px;box-shadow:0 30px 60px -30px rgba(0,0,0,.8),inset 0 1px 0 rgba(255,255,255,.03)}
+.sec{border-bottom:1px solid rgba(30,167,255,.09)}
+h3{font-family:Georgia,"Times New Roman",serif;font-weight:400;font-size:13px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold2);opacity:.9}
+
+/* Butonlar */
+.btn{border-radius:11px;border:1px solid rgba(30,167,255,.22);background:rgba(255,255,255,.025);
+  letter-spacing:.02em;transition:transform .18s ease,border-color .18s ease,background .18s ease,box-shadow .18s ease}
+.btn:hover:not(:disabled){border-color:rgba(30,167,255,.55);background:rgba(30,167,255,.06);transform:translateY(-1px)}
+.btn.gold{background:linear-gradient(180deg,#7fd8ff,#1277c9);color:#03101f;border-color:transparent;font-weight:600;
+  box-shadow:inset 0 1px 0 rgba(255,255,255,.45),0 10px 24px -10px rgba(30,167,255,.55)}
+.btn.gold:hover:not(:disabled){box-shadow:inset 0 1px 0 rgba(255,255,255,.5),0 14px 30px -10px rgba(30,167,255,.75);background:linear-gradient(180deg,#9be6ff,#1a8fe0)}
+.btn.big{letter-spacing:.28em;font-family:Georgia,serif;font-size:14px;padding:14px}
+.btn.danger{border-color:rgba(255,107,107,.3)}
+
+/* Girdiler */
+select,input,textarea{border-radius:10px;border:1px solid rgba(30,167,255,.16);background:rgba(0,0,0,.4)}
+select:focus,input:focus,textarea:focus{border-color:rgba(30,167,255,.6);box-shadow:0 0 0 3px rgba(30,167,255,.12)}
+
+/* İlerleme ve durum */
+#bar{background:linear-gradient(90deg,#0a5fb0,var(--gold2));box-shadow:0 0 14px rgba(247,231,166,.35)}
+.progress{background:rgba(255,255,255,.04);border-radius:99px}
+.pill{border-radius:99px;background:rgba(255,255,255,.03);border:1px solid rgba(30,167,255,.14)}
+
+/* Konsol */
+.console{background:rgba(0,0,0,.45);border:1px solid rgba(30,167,255,.12);border-radius:14px;font-family:Consolas,"Cascadia Mono",monospace}
+.line{border-bottom:1px solid rgba(255,255,255,.02)}
+
+/* Sekmeler */
+.tab{letter-spacing:.08em;text-transform:uppercase;font-size:11.5px}
+.tab.active{color:var(--gold2);box-shadow:inset 0 -2px 0 var(--gold)}
+
+/* Kartlar ve modal */
+.card{background:rgba(255,255,255,.025);border:1px solid rgba(30,167,255,.12);border-radius:14px}
+.modal{background:rgba(0,0,0,.72);backdrop-filter:blur(10px)}
+.wizCard{border-radius:22px;border:1px solid rgba(30,167,255,.22);
+  background:linear-gradient(180deg,#070d18,#040912);box-shadow:0 50px 120px -30px rgba(0,0,0,.9),0 0 0 1px rgba(255,255,255,.02) inset}
+.wizHead h2{font-family:Georgia,serif;font-weight:400;letter-spacing:.12em;color:var(--gold2)}
+.wizFoot{border-top:1px solid rgba(30,167,255,.12)}
+.hero .logo{width:96px;height:96px}
+::selection{background:rgba(30,167,255,.35);color:#fff}
+
+/* v3.1: logo PNG'sinin siyah zemini ekranda kaybolsun */
+.logo,.hero-logo{mix-blend-mode:screen}
+.hero-logo{width:230px;height:auto;margin:0 auto 6px;display:block}
+
+/* v3.1.1: logonun kare kenarlarını yumuşak oval maskeyle eritir */
+.logo,.hero-logo{
+  -webkit-mask-image:radial-gradient(closest-side,#000 86%,transparent 100%);
+          mask-image:radial-gradient(closest-side,#000 86%,transparent 100%);
+  -webkit-mask-size:100% 100%;mask-size:100% 100%;
+  border-radius:50%;
+}
+.topbar .logo{width:52px;height:52px}

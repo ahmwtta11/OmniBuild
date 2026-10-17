@@ -1,0 +1,142 @@
+<!doctype html>
+<html lang="tr">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self' 'unsafe-inline'; img-src 'self' data:">
+  <title>OmniBuild</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="assets/theme.css">
+</head>
+<body>
+  <div class="aurora"><i></i><i></i><i></i></div>
+
+  <header class="topbar">
+    <div class="brand">
+      <img src="assets/mark.png" alt="OmniBuild" class="logo">
+      <div>
+        <h1>OMNIBUILD</h1>
+        <small>Android APK & Windows uygulama derleme stüdyosu</small>
+      </div>
+    </div>
+    <div class="topright">
+      <div id="pills" class="pills"></div>
+      <button id="btnSetup" class="btn gold tiny">⚙ Kurulum & Ayarlar</button>
+    </div>
+  </header>
+
+  <main class="grid">
+    <!-- SOL: proje ve derleme -->
+    <section class="panel left">
+      <div class="sec">
+        <h3>Proje</h3>
+        <button id="pickProj" class="btn ghost">📁 Proje klasörü seç</button>
+        <div class="kv"><span>Ad</span><b id="projName">—</b></div>
+        <div class="kv"><span>Tür</span><b id="projType">—</b></div>
+        <code id="projPath">Seçilmedi</code>
+      </div>
+
+      <div class="sec">
+        <h3>Hedef</h3>
+        <select id="target">
+          <option value="apk-debug">Android APK (debug)</option>
+          <option value="apk-release">Android APK (release, imzasız)</option>
+          <option value="exe">Windows uygulaması (.exe kurulum)</option>
+        </select>
+        <button id="pickOut" class="btn ghost">📦 Çıktı klasörü</button>
+        <code id="outPath">Seçilmedi</code>
+      </div>
+
+      <div class="sec">
+        <h3>AI otomatik düzeltme</h3>
+        <label class="chk"><input type="checkbox" id="autoFix" checked> Hata olursa AI düzeltip yeniden derlesin</label>
+        <label>Maksimum deneme
+          <select id="attempts">
+            <option value="1">1</option><option value="2" selected>2</option><option value="3">3</option><option value="4">4</option><option value="5">5</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="actions">
+        <button id="buildBtn" class="btn gold big">⚒ DERLE</button>
+        <button id="cancelBtn" class="btn danger" disabled>İptal</button>
+      </div>
+
+      <div class="progress"><div id="bar"></div></div>
+      <div class="pct"><span id="stepLabel" class="muted">Hazır</span><b id="pct">0%</b></div>
+      <div id="stepper" class="stepper"></div>
+      <div id="status" class="status">Hazır</div>
+
+      <div id="result" class="result" hidden>
+        <div class="resHead">✔ Çıktı hazır</div>
+        <div id="resName" class="resName"></div>
+        <div class="row">
+          <button id="openBtn" class="btn tiny">Klasörü aç</button>
+          <button id="runBtn" class="btn tiny gold">Dosyayı aç</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ORTA: konsol -->
+    <section class="panel center">
+      <div class="toolbar">
+        <h3>Canlı Konsol</h3>
+        <span id="lineCount" class="muted small"></span>
+        <label class="chk"><input type="checkbox" id="filterErr"> Sadece hatalar</label>
+        <button id="copyBtn" class="btn tiny">Kopyala</button>
+        <button id="clearBtn" class="btn tiny">Temizle</button>
+      </div>
+      <div id="console" class="console"></div>
+    </section>
+
+    <!-- SAĞ: teşhis ve ajan -->
+    <section class="panel right">
+      <nav class="tabs">
+        <button class="tab active" data-tab="diag">Teşhis</button>
+        <button class="tab" data-tab="ai">AI Ajan</button>
+      </nav>
+
+      <div id="pane-diag" class="pane active">
+        <div id="diag" class="diag"><div class="empty">Derleme hataları burada otomatik analiz edilir.</div></div>
+      </div>
+
+      <div id="pane-ai" class="pane">
+        <div class="aibar">
+          <span id="modelBadge" class="badge">—</span>
+          <button id="btnAgentSetup" class="btn tiny">Ayarlar</button>
+        </div>
+        <div class="quick">
+          <button class="btn" data-q="Derleme logunu incele, kök nedeni bul ve düzeltmeyi uygula.">🔍 Hatayı bul ve düzelt</button>
+          <button class="btn" data-q="Projeyi tara ve derlemeden önce riskli noktaları listele.">✅ Ön kontrol yap</button>
+          <button class="btn" data-q="Electron/Gradle ayarlarını kontrol et, eksik veya hatalı olanı bildir.">🧰 Yapılandırmayı denetle</button>
+        </div>
+        <div id="chat" class="chat"></div>
+        <div class="inputRow">
+          <textarea id="chatIn" rows="2" placeholder="Görev yazın: “build hatasını bul ve düzelt”"></textarea>
+          <div class="col">
+            <button id="sendBtn" class="btn gold">Gönder</button>
+            <button id="stopBtn" class="btn danger tiny" disabled>Durdur</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- KURULUM SİHİRBAZI -->
+  <div id="wizard" class="modal">
+    <div class="wizCard">
+      <header class="wizHead">
+        <div class="brand"><img src="assets/mark.png" class="logo sm"><h2>Kurulum Sihirbazı</h2></div>
+        <button id="wizClose" class="btn tiny ghost2">✕</button>
+      </header>
+      <nav id="wizNav" class="wizNav"></nav>
+      <div id="wizBody" class="wbody"></div>
+      <footer class="wizFoot">
+        <button id="wizPrev" class="btn">← Geri</button>
+        <button id="wizNext" class="btn gold">İleri →</button>
+      </footer>
+    </div>
+  </div>
+
+  <script src="renderer.js"></script>
+</body>
+</html>

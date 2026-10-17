@@ -1,0 +1,30 @@
+{
+  "name": "omnibuild",
+  "version": "3.1.0",
+  "description": "APK ve Windows uygulaması derleyen, AI destekli Electron stüdyosu",
+  "main": "main.js",
+  "author": "OmniBuild",
+  "scripts": {
+    "start": "electron .",
+    "icon": "python3 scripts/make_icon.py",
+    "dist": "electron-builder --win --publish never"
+  },
+  "devDependencies": {
+    "electron": "^31.7.7",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.omnibuild.studio",
+    "productName": "OmniBuild",
+    "directories": { "output": "release", "buildResources": "build" },
+    "files": ["**/*", "!release", "!**/*.bak"],
+    "win": { "target": [{ "target": "nsis", "arch": ["x64"] }], "icon": "build/icon.png" },
+    "nsis": {
+      "oneClick": false,
+      "allowToChangeInstallationDirectory": true,
+      "createDesktopShortcut": true,
+      "createStartMenuShortcut": true,
+      "shortcutName": "OmniBuild"
+    }
+  }
+}
